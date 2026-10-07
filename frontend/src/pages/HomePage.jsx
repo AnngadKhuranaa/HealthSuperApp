@@ -30,10 +30,10 @@ const PILLARS = [
   { icon: '📋', title: 'Structured Reports', desc: 'Every screening produces a clear report with scores, checklists, limitations, and next steps.' },
   { icon: '⚠️', title: 'Safety First', desc: 'Concerning responses are always flagged with visible, verified crisis resources — not dismissed.' },
   { icon: '🎯', title: 'No False Promises', desc: 'We never diagnose. We screen. Every result is honest about what it can and cannot tell you.' },
-  { icon: '🔬', title: 'Expanding Modules', desc: 'Mental health is just the start. Neurological and cardiovascular screening are coming soon.' },
+  { icon: '🔬', title: 'Expanding Modules', desc: 'Mental health and cardiovascular screening are live. Neurological screening is in active development.' },
 ]
 
-export default function HomePage({ onStart }) {
+export default function HomePage({ onStart, onStartCardio }) {
   const [modules, setModules] = useState([])
   const [backendStatus, setBackendStatus] = useState('checking')
 
@@ -141,7 +141,7 @@ export default function HomePage({ onStart }) {
               </h2>
             </div>
             <p style={{ fontSize: '0.875rem', color: 'var(--ink-muted)', maxWidth: 280, textAlign: 'right', lineHeight: 1.6 }}>
-              Begin with Mental Health. Neurological and Cardiovascular screenings are coming soon.
+              Mental Health and Cardiovascular screening are available now. Neurological is in development.
             </p>
           </div>
 
@@ -161,16 +161,19 @@ export default function HomePage({ onStart }) {
             {modules.map((mod, idx) => {
               const cfg = MODULE_CONFIG[mod.id] || { emoji: '🔬', bg: '#eee', tags: [], num: '0' + (idx + 1) }
               const isReversed = idx % 2 === 1
+              const handleClick = mod.status === 'available'
+                ? (mod.id === 'cardiovascular' ? onStartCardio : onStart)
+                : undefined
 
               return (
                 <div
                   key={mod.id}
                   id={`module-card-${mod.id}`}
                   className={`module-card ${mod.status} ${isReversed ? 'reversed' : ''}`}
-                  onClick={mod.status === 'available' ? onStart : undefined}
+                  onClick={handleClick}
                   role={mod.status === 'available' ? 'button' : undefined}
                   tabIndex={mod.status === 'available' ? 0 : undefined}
-                  onKeyDown={e => e.key === 'Enter' && mod.status === 'available' && onStart()}
+                  onKeyDown={e => e.key === 'Enter' && mod.status === 'available' && handleClick?.()}
                   aria-label={mod.status === 'available' ? `Start ${mod.name}` : `${mod.name} — coming soon`}
                 >
                   {/* Visual panel */}
