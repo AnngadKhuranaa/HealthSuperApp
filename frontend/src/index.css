@@ -1,0 +1,125 @@
+/* HealthOS — Global CSS Reset & Design System (BARD-inspired editorial) */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ── Warm editorial palette ── */
+  --bg:              #F2EBE1;
+  --bg-alt:          #EDE4D8;
+  --surface:         #FFFFFF;
+  --surface-warm:    #FDFCFB;
+  --surface-dark:    #1A1A1A;
+
+  --ink:             #0A0A0A;
+  --ink-muted:       #6B7280;
+  --ink-dim:         #9CA3AF;
+  --ink-on-dark:     #F2EBE1;
+
+  --accent-green:    #3D6B5E;
+  --accent-green-bg: #EAF2EF;
+  --accent-blue:     #3D5A80;
+  --accent-warm:     #A07850;
+  --accent-rose:     #7B5E7B;
+
+  --border:          rgba(10,10,10,0.12);
+  --border-strong:   rgba(10,10,10,0.25);
+
+  --danger:          #C0392B;
+  --danger-bg:       #FEF2F2;
+  --danger-border:   rgba(192, 57, 43, 0.25);
+
+  --warning-bg:      #FFFBEB;
+  --warning-border:  rgba(180, 130, 40, 0.3);
+  --warning-text:    #92400E;
+
+  --info-bg:         #EFF6FF;
+  --info-border:     rgba(61, 90, 128, 0.25);
+  --info-text:       #1E40AF;
+
+  /* ── Typography ── */
+  --font-display:    'Anton', 'Arial Black', sans-serif;
+  --font-body:       'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ── Spacing ── */
+  --s1: 4px;  --s2: 8px;   --s3: 12px;  --s4: 16px;
+  --s5: 20px; --s6: 24px;  --s8: 32px;  --s10: 40px;
+  --s12: 48px; --s16: 64px;
+
+  /* ── Radii ── */
+  --r-sm:   4px;
+  --r-md:   8px;
+  --r-lg:   16px;
+  --r-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.14);
+  --shadow-card-hover: 0 20px 50px rgba(0,0,0,0.14);
+
+  /* ── Transitions ── */
+  --t-fast: 150ms ease;
+  --t-base: 250ms ease;
+  --t-slow: 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+/* ── Typography ─────────────────────────────────────────── */
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.05; letter-spacing: -0.01em; }
+p { color: var(--ink-muted); }
+a { color: var(--ink); text-decoration: none; transition: opacity var(--t-fast); }
+a:hover { opacity: 0.6; }
+
+/* ── Page fade-in ────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp var(--t-slow) both; }
+
+/* ── Marquee ─────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-inner { animation: marquee 26s linear infinite; }
+
+/* ── Spinner ─────────────────────────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--ink);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
